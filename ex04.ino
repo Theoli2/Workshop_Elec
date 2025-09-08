@@ -29,9 +29,17 @@ void loop() {
 
 void light(){
   int sensorValue = analogRead(A0);
-  redLightValue = map(sensorValue, 0, 140, 0, 255);
+  redLightValue = map(sensorValue, 120, 400, 0, 255);
   blueLightValue = 255 - redLightValue;
 
+  if(blueLightValue < 0)
+    blueLightValue = 0;
+  if(redLightValue < 0)
+    redLightValue = 0;
+  if(blueLightValue > 255)
+    blueLightValue = 255;
+  if(redLightValue > 255)
+    redLightValue = 255;  
   analogWrite(blueLedPin, blueLightValue);
   analogWrite(redLedPin, redLightValue);
   Serial.println(sensorValue);
